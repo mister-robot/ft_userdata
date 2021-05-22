@@ -1,0 +1,139 @@
+{
+    "max_open_trades": 40,
+    "stake_currency": "BTC",
+    "stake_amount": 0.00425,
+    "tradable_balance_ratio": 0.99,
+    "fiat_display_currency": "USD",
+    "timeframe": "15m",
+    "dry_run": true,
+    "cancel_open_orders_on_exit": false,
+    "unfilledtimeout": {
+        "buy": 10,
+        "sell": 60
+    },
+    "bid_strategy": {
+        "price_side": "bid",
+        "ask_last_balance": 0.0,
+        "use_order_book": false,
+        "order_book_top": 1,
+        "check_depth_of_market": {
+            "enabled": false,
+            "bids_to_ask_delta": 1
+        }
+    },
+    "ask_strategy": {
+        "price_side": "ask",
+        "use_order_book": false,
+        "order_book_min": 1,
+        "order_book_max": 1,
+        "use_sell_signal": false,
+        "sell_profit_only": false,
+        "ignore_roi_if_buy_signal": true
+    },
+    "exchange": {
+        "name": "binance",
+        "key": "PibicybhFIPl8BauCQbXWxi2wjGxIXxPWey1Hjgp2NQYh02V36Y2OwezLNlo6m7S",
+        "secret": "Kccwjc4dVi1ztuGIw9qI9rnebxWPNGVDQQgtHnUMOmGpCSkrNTul4oWDwOm0oURy",
+        "ccxt_config": {"enableRateLimit": true},
+        "ccxt_async_config": {
+            "enableRateLimit": true,
+            "rateLimit": 200
+        },
+        "pair_whitelist": [
+            "ETH/BTC",
+            "LTC/BTC",
+            "XRP/BTC",
+            "ADA/BTC",
+            "DOT/BTC",
+            "LINK/BTC",
+            "XMR/BTC",
+            "ZEC/BTC",
+            "EOS/BTC",
+            "DOGE/BTC",
+            "CAKE/BTC",
+            "DASH/BTC",	
+            "SOL/BTC",	
+            "LUNA/BTC",
+            "THETA/BTC",
+            "NEO/BTC",	
+            "UNI/BTC",
+            "CHZ/BTC",
+            "MATIC/BTC",
+            "XLM/BTC",
+            "SXP/BTC",
+            "OMG/BTC",
+            "AAVE/BTC",
+            "FTM/BTC",
+            "WAVES/BTC",
+            "SRM/BTC",
+            "VET/BTC",
+            "AVAX/BTC",
+            "MIR/BTC",
+            "TRB/BTC",
+            "RUNE/BTC",
+            "CTSI/BTC",
+            "TRX/BTC",
+            "SNM/BTC",
+            "RLC/BTC",
+            "XVG/BTC"
+        ],
+        "pair_blacklist": [
+            "BNB/BTC",
+            "BNB/BUSD",
+            "BNB/ETH",
+            "BNB/EUR",
+            "BNB/NGN",
+            "BNB/PAX",
+            "BNB/RUB",
+            "BNB/TRY",
+            "BNB/TUSD",
+            "BNB/USDC",
+            "BNB/USDS",
+            "BNB/USDT"
+        ]
+    },
+    "pairlists": [
+        {"method": "StaticPairList"}
+    ],
+    "edge": {
+        "enabled": false,
+        "process_throttle_secs": 3600,
+        "calculate_since_number_of_days": 7,
+        "allowed_risk": 0.01,
+        "stoploss_range_min": -0.01,
+        "stoploss_range_max": -0.1,
+        "stoploss_range_step": -0.01,
+        "minimum_winrate": 0.60,
+        "minimum_expectancy": 0.20,
+        "min_trade_number": 10,
+        "max_trade_duration_minute": 1440,
+        "remove_pumps": false
+    },
+    "telegram": {
+        "enabled": true,
+        "token": "1833657656:AAFKO8uEwwWxV5IsLQwUix-ATjAP0C-3-Kc",
+        "chat_id": "596019764",
+        "keyboard": [   
+            ["/daily", "/stats", "/balance", "/profit"],
+            ["/status table", "/performance"],
+            ["/reload_config", "/count", "/logs"]
+        ]
+    },
+    "api_server": {
+        "enabled": true,
+        "listen_ip_address": "0.0.0.0",
+        "listen_port": 80,
+        "verbosity": "error",
+        "enable_openapi": false,
+        "jwt_secret_key": "somethingrandom",
+        "CORS_origins": [],
+        "username": "erick",
+        "password": "password"
+    },
+    "bot_name": "freqtrade",
+    "initial_state": "running",
+    "forcebuy_enable": false,
+    "internals": {
+        "process_throttle_secs": 5
+    }
+}
