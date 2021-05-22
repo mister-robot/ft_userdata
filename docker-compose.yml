@@ -22,7 +22,7 @@ services:
     # Default command used when running `docker compose up`
     command: >
       trade
-      --logfile /Bot/user_data/logs/freqtrade.log
+      --logfile /freqtrade/user_data/logs/freqtrade.log
       --db-url sqlite:////Bot/user_data/tradesv3.sqlite
-      --config /Bot/user_data/config.json
+      --config /freqtrade/user_data/config.json
       --strategy e6v34
