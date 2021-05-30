@@ -1,0 +1,102 @@
+################################ Crear carpeta y usuario de freqtrade ################################
+mkdir ft_userdata
+cd ft_userdata/
+# Download the docker-compose file from the repository
+curl https://raw.githubusercontent.com/freqtrade/freqtrade/stable/docker-compose.yml -o docker-compose.yml
+
+# Pull the freqtrade image
+docker compose pull
+
+# Create user directory structure
+docker compose run --rm freqtrade create-userdir --userdir user_data
+
+# Create configuration - Requires answering interactive questions
+docker compose run --rm freqtrade new-config --config user_data/config.json
+
+################################ Manejo de docker ################################
+Abrir container
+docker-compose up -d
+
+Logs -> problemas
+docker compose logs -f
+
+Estado de container
+docker compose ps
+
+Cerrar servicio
+docker-compose down
+cambiar image y estrategia del docker-compose.yml
+
+################################ Comandos del bot ################################
+
+Correr estrategia
+docker-compose run freqtrade trade --strategy e6v32
+
+Descarga datos
+docker-compose run --rm freqtrade download-data -t 15m --timerange 20210701-20210514
+
+Cambia política de reinicio
+docker update --restart no freqtrade
+
+Verificar datos existentes
+docker-compose run --rm freqtrade list-data --exchange binance
+
+Backtesting
+docker-compose run --rm freqtrade backtesting --datadir user_data/data/binance -i 15m --dry-run-wallet 0.058 --fee 0.001 --strategy-list e6v32 e6v34 --timerange 20210701-20210514
+--export trades -s e6v32
+
+Plot
+docker-compose run --rm freqtrade plot-dataframe --strategy e1v1 -p ATOM/BTC -i 15m
+
+Leer gráfico
+open user_data/plot/freqtrade-plot-ATOM_BTC-15m.html
+O abrir de la carpeta
+
+Hyperopt
+docker-compose run --rm freqtrade hyperopt -e 100 --hyperopt-loss SharpeHyperOptLossDaily -i 15m  --spaces all --timerange 20210301-20210430 -s e6v1
+El objetivo se ve en el parámetro --hyperopt-loss -> riesgo ver en documentación
+
+Revisar epoch particular a un hyperopt
+docker compose run freqtrade hyperopt-show -n INT
+
+comando > archivo 
+terminal y al archivo
+
+comando >> archivo
+solo archivo
+
+################################ Comandos del bot en EC2 - AWS ################################
+Mandar a un repo
+
+Abrir Powershell desde la ubicacion del .pem
+ssh -i "key.pem" ubuntu@ec2-3-17-61-23.us-east-2.compute.amazonaws.com
+sudo apt-get update ************************* actualizar cada n comandos para que funcione
+sudo apt-get install git
+instalar docker engine
+instalar compose
+git clone repo
+cd repo
+https://www.freqtrade.io/en/stable/docker_quickstart/
+sudo docker-compose pull
+Agregar sudo a todos los comandos
+Failed validating 'minimum' in schema['properties']['api_server']['properties']['listen_port']:
+    {'maximum': 65535, 'minimum': 1024, 'type': 'integer'}
+
+On instance['api_server']['listen_port']:
+    80
+2021-05-22 06:29:10,024 - freqtrade.commands.trade_commands - ERROR - 80 is less than the minimum of 1024
+2021-05-22 06:29:10,025 - freqtrade.commands.trade_commands - ERROR - Fatal exception!
+Traceback (most recent call last):
+  File "/freqtrade/freqtrade/commands/trade_commands.py", line 18, in start_trading
+    worker = Worker(args)
+  File "/freqtrade/freqtrade/worker.py", line 35, in __init__
+    self._init(False)
+  File "/freqtrade/freqtrade/worker.py", line 52, in _init
+    self.freqtrade = FreqtradeBot(self._config)
+  File "/freqtrade/freqtrade/freqtradebot.py", line 69, in __init__
+    validate_config_consistency(config)
+  File "/freqtrade/freqtrade/configuration/config_validation.py", line 85, in validate_config_consistency
+    validate_config_schema(conf)
+  File "/freqtrade/freqtrade/configuration/config_validation.py", line 61, in validate_config_schema
+    raise ValidationError(
+jsonschema.exceptions.ValidationError: 80 is less than the minimum of 1024
